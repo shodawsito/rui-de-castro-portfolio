@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Caso de estudio técnico de Avoid Guild Web: arquitectura, frontend, OAuth, datos externos, resiliencia, calidad y despliegue.">
+    <meta name="theme-color" content="#0b1018">
+    <title>Avoid Guild Web · Caso de estudio · Rui De Castro</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1018'/%3E%3Cpath d='M17 46V18h16c9 0 14 4 14 12 0 5-2 8-7 10l9 6H37l-7-6h-3v6H17Zm10-15h6c3 0 4-1 4-3s-1-3-4-3h-6v6Z' fill='%236de7d2'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body class="case-page">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Volver al portfolio de Rui De Castro">
+        <span class="brand-mark" aria-hidden="true">RD</span>
+        <span>Rui De Castro</span>
+      </a>
+      <nav aria-label="Navegación del proyecto">
+        <a href="/">Portfolio</a>
+        <a href="#arquitectura">Arquitectura</a>
+        <a class="nav-contact" href="https://www.avoid-guild-eu-sanguino.es" target="_blank" rel="noreferrer">Ver proyecto ↗</a>
+      </nav>
+    </header>
+
+    <main id="contenido">
+      <header class="case-hero">
+        <a class="back-link" href="/">← Todos los proyectos</a>
+        <p class="eyebrow"><span></span> Caso de estudio · 2026</p>
+        <h1>Avoid Guild Web</h1>
+        <p class="case-deck">Una plataforma bilingüe que combina contenido editorial, datos de juego en tiempo real y áreas privadas sin depender de que los proveedores externos estén siempre disponibles.</p>
+        <dl class="case-summary">
+          <div><dt>Responsabilidad</dt><dd>Producto, frontend y calidad</dd></div>
+          <div><dt>Estado</dt><dd>v1.0.0 · Producción</dd></div>
+          <div><dt>Plataforma</dt><dd>Web responsive · ES / EN</dd></div>
+          <div><dt>Enlace</dt><dd><a href="https://www.avoid-guild-eu-sanguino.es" target="_blank" rel="noreferrer">Visitar sitio ↗</a></dd></div>
+        </dl>
+      </header>
+
+      <figure class="case-cover">
+        <img src="/assets/avoid-guild-home.png" alt="Portada de Avoid Guild Web con navegación, presentación de la hermandad y progreso de raid" width="1426" height="914">
+        <figcaption>Portada de producción · diseño editorial oscuro y datos de progresión integrados.</figcaption>
+      </figure>
+
+      <div class="case-layout">
+        <aside class="case-nav" aria-label="Índice del caso de estudio">
+          <p>Contenido</p>
+          <ol>
+            <li><a href="#contexto">Contexto</a></li>
+            <li><a href="#solucion">Solución</a></li>
+            <li><a href="#arquitectura">Arquitectura</a></li>
+            <li><a href="#calidad">Calidad</a></li>
+            <li><a href="#resultado">Resultado</a></li>
+          </ol>
+        </aside>
+
+        <article class="case-content">
+          <section id="contexto">
+            <p class="section-number">01 / Contexto</p>
+            <h2>De una web informativa a una herramienta para la comunidad</h2>
+            <p class="case-lead">Avoid necesitaba una presencia pública sólida y, al mismo tiempo, un espacio útil para sus miembros y responsables. El reto era reunir contenido propio y varias fuentes de datos sin exponer información privada ni convertir cada incidencia externa en una página rota.</p>
+            <div class="challenge-grid">
+              <article><span>01</span><h3>Datos fragmentados</h3><p>El progreso, roster, puntuaciones y logs proceden de servicios con modelos y tiempos de respuesta diferentes.</p></article>
+              <article><span>02</span><h3>Dos niveles de acceso</h3><p>Editores y miembros requieren autenticaciones distintas y permisos claramente separados.</p></article>
+              <article><span>03</span><h3>Experiencia consistente</h3><p>La interfaz debía conservar velocidad, claridad y datos útiles incluso durante fallos parciales.</p></article>
+            </div>
+          </section>
+
+          <section id="solucion">
+            <p class="section-number">02 / Solución</p>
+            <h2>Una experiencia pública rápida con profundidad privada</h2>
+            <p>El portal organiza la información en Inicio, Hermandad, Raid, Loot, Míticas+, Roster, Reclutamiento y Guías. El contenido esencial permanece público; los datos internos se solicitan únicamente después de verificar la sesión y la pertenencia a la hermandad.</p>
+            <ul class="feature-list">
+              <li><strong>Contenido bilingüe:</strong> rutas y metadatos independientes en castellano e inglés.</li>
+              <li><strong>Datos dinámicos:</strong> progreso, temporadas y actividad combinados con contenido editorial.</li>
+              <li><strong>Edición privada:</strong> publicación versionada para roster, reclutamiento, loot, guías y contenido general.</li>
+              <li><strong>Acceso de miembros:</strong> Battle.net valida la pertenencia antes de entregar rankings, logs o historial privado.</li>
+              <li><strong>Persistencia de preferencias:</strong> el personaje seleccionado se recupera tras una nueva autenticación.</li>
+            </ul>
+          </section>
+
+          <section id="arquitectura">
+            <p class="section-number">03 / Arquitectura</p>
+            <h2>Separación clara entre interfaz, permisos y proveedores</h2>
+            <p>Next.js sirve una capa pública y componentes de servidor. Las credenciales y consultas sensibles nunca llegan al navegador. Cada integración tiene su propia política de caché, reintentos y degradación controlada.</p>
+
+            <div class="architecture" role="img" aria-label="Diagrama: navegador conectado a Next.js, que separa contenido público, acceso de miembros y edición; el servidor consulta integraciones externas y persistencia versionada">
+              <div class="arch-node arch-entry"><span>Cliente</span><strong>Navegador</strong><small>ES / EN · Responsive</small></div>
+              <div class="arch-arrow" aria-hidden="true">↓</div>
+              <div class="arch-node arch-core"><span>Aplicación</span><strong>Next.js · App Router</strong><small>Server Components · API routes</small></div>
+              <div class="arch-split" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="arch-columns">
+                <div class="arch-node"><span>Público</span><strong>Contenido y datos</strong><small>Streaming · Caché</small></div>
+                <div class="arch-node"><span>Miembros</span><strong>Battle.net OAuth</strong><small>Sesión firmada</small></div>
+                <div class="arch-node"><span>Editores</span><strong>Clerk</strong><small>Invite-only</small></div>
+              </div>
+              <div class="arch-providers">
+                <span>Raider.IO</span><span>Battle.net</span><span>Warcraft Logs</span><span>WoWAudit</span><span>GitHub</span>
+              </div>
+            </div>
+
+            <h3 class="subheading">Infraestructura y entrega</h3>
+            <div class="environment-row">
+              <article><span>01</span><h4>Desarrollo</h4><p>Entorno local con clientes OAuth y configuración aislada.</p></article>
+              <article><span>02</span><h4>Preproducción</h4><p>Rama y credenciales propias para validar sin afectar datos reales.</p></article>
+              <article><span>03</span><h4>Producción</h4><p>Dominio propio, variables protegidas y publicación desde la rama estable.</p></article>
+            </div>
+          </section>
+
+          <section id="calidad">
+            <p class="section-number">04 / Calidad y resiliencia</p>
+            <h2>Los fallos externos forman parte del diseño</h2>
+            <p>La plataforma diferencia entre cero progreso, datos parciales y proveedor no disponible. Cuando Raider.IO falla, mantiene el mayor progreso o puntuación válidos de la temporada y lo comunica claramente, evitando sustituir información útil por un guion o un estado engañoso.</p>
+            <div class="quality-stats">
+              <div><strong>79</strong><span>pruebas automatizadas</span></div>
+              <div><strong>AA</strong><span>contraste objetivo</span></div>
+              <div><strong>3</strong><span>entornos aislados</span></div>
+              <div><strong>0</strong><span>secretos en cliente</span></div>
+            </div>
+            <ul class="feature-list compact">
+              <li>TypeScript estricto, lint y compilación de producción antes de cada lanzamiento.</li>
+              <li>Reintentos limitados, solicitudes concurrentes compartidas y cachés con alcance explícito.</li>
+              <li>Áreas privadas excluidas de buscadores y respuestas sensibles marcadas como no almacenables.</li>
+              <li>Navegación por teclado, estados activos, controles semánticos y diseño sin desbordamiento horizontal.</li>
+              <li>Versionado semántico, changelog y validación manual en preproducción antes de cada publicación.</li>
+            </ul>
+          </section>
+
+          <section id="resultado">
+            <p class="section-number">05 / Resultado</p>
+            <h2>Una base estable, preparada para evolucionar</h2>
+            <p class="case-lead">La versión 1.0.0 unifica la presencia pública y las herramientas internas de Avoid en un producto mantenible. La arquitectura permite añadir nuevas fuentes, páginas o editores sin mezclar permisos, contenido y lógica de proveedores.</p>
+            <blockquote>La calidad no se añadió al final: definió desde el principio cómo debía comportarse cada pantalla cuando los datos, la red o la sesión no eran ideales.</blockquote>
+            <div class="case-actions">
+              <a class="button button-primary" href="https://www.avoid-guild-eu-sanguino.es" target="_blank" rel="noreferrer">Visitar Avoid Guild Web ↗</a>
+              <a class="button button-quiet" href="/">Volver al portfolio</a>
+            </div>
+          </section>
+        </article>
+      </div>
+    </main>
+
+    <footer>
+      <p class="footer-kicker">Siguiente proyecto</p>
+      <p class="next-project">La estructura está preparada para crecer.</p>
+      <div class="footer-bottom">
+        <p>Rui De Castro · Frontend Developer &amp; QA Automation Engineer</p>
+        <div><a href="mailto:ruidecastro.it@gmail.com">Email</a><a href="https://github.com/shodawsito" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/rui-nuno-de-castro-tendeiro/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
+      </div>
+    </footer>
+  </body>
+</html>
