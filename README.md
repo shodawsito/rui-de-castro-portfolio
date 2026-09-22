@@ -10,7 +10,7 @@ Portfolio personal de Rui De Castro, desarrollador full-stack especializado en f
 
 ## Tecnologías
 
-El portfolio es un sitio estático construido con HTML y CSS. No necesita un framework, dependencias de producción ni un proceso de compilación. `preview-server.mjs` utiliza Node.js únicamente para verlo en local. El despliegue actual se gestiona con Sites.
+El portfolio es un sitio estático construido con HTML y CSS. No necesita un framework, dependencias de producción ni un proceso de compilación. `preview-server.mjs` utiliza Node.js únicamente para verlo en local. El despliegue se gestiona con Vercel.
 
 La implementación utiliza HTML semántico, navegación por teclado, diseño adaptable y metadatos específicos para cada página.
 
@@ -32,7 +32,7 @@ dist/
   styles.css                         Estilos compartidos
   assets/                            Imágenes del portfolio
   proyectos/avoid-guild-web/         Caso de estudio
-.openai/hosting.json                 Configuración del despliegue en Sites
+vercel.json                          Configuración del directorio publicado en Vercel
 preview-server.mjs                   Servidor local de vista previa
 ```
 
@@ -40,11 +40,11 @@ Para añadir un proyecto, crea `dist/proyectos/<nombre>/index.html` y enlázalo 
 
 ## Publicación
 
-El contenido que se publica está en `dist/`. El repositorio de GitHub sirve para conservar y compartir el código; enviar cambios a GitHub no actualiza automáticamente la web alojada en Sites.
+El contenido que se publica está en `dist/`. Vercel publica los cambios enviados a la rama principal del repositorio de GitHub.
 
 ## Enlaces
 
-- [Portfolio](https://rui-de-castro-portfolio.srstrider.chatgpt.site/)
+- [Portfolio](https://rui-de-castro-portfolio.es/)
 - [Avoid Guild Web](https://www.avoid-guild-eu-sanguino.es/)
 - [GitHub](https://github.com/shodawsito)
 - [LinkedIn](https://www.linkedin.com/in/rui-nuno-de-castro-tendeiro/)
