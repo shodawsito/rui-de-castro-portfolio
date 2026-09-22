@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check-build.mjs",
+    "preview": "node scripts/build.mjs && node preview-server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

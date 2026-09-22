@@ -1,0 +1,79 @@
+{
+  "lang": "es",
+  "name": "Rui De Castro",
+  "siteUrl": "https://rui-de-castro-portfolio.vercel.app",
+  "brandMark": "RD",
+  "email": "ruidecastro.it@gmail.com",
+  "githubUrl": "https://github.com/shodawsito",
+  "linkedinUrl": "https://www.linkedin.com/in/rui-nuno-de-castro-tendeiro/",
+  "socialLabels": { "github": "GitHub ↗", "linkedin": "LinkedIn ↗" },
+  "skipLink": "Saltar al contenido",
+  "brandHomeLabel": "Rui De Castro, inicio",
+  "brandBackLabel": "Volver al portfolio de Rui De Castro",
+  "navigation": {
+    "homeLabel": "Navegación principal",
+    "projectLabel": "Navegación del proyecto",
+    "mobileLabel": "Menú",
+    "projects": "Proyectos",
+    "profile": "Perfil",
+    "contact": "Contacto",
+    "portfolio": "Portfolio",
+    "architecture": "Arquitectura",
+    "visitProject": "Ver proyecto ↗"
+  },
+  "seo": {
+    "homeTitle": "Rui De Castro · Frontend Developer",
+    "homeDescription": "Portfolio de Rui De Castro, Frontend Developer y QA Automation Engineer especializado en interfaces web fiables, accesibles y cuidadas.",
+    "projectsTitle": "Proyectos · Rui De Castro",
+    "projectsDescription": "Proyectos y casos de estudio de Rui De Castro sobre frontend, accesibilidad y calidad de software."
+  },
+  "home": {
+    "heroEyebrow": "Frontend Developer · QA Automation Engineer",
+    "heroTitle": "Interfaces cuidadas.",
+    "heroHighlight": "Calidad incorporada.",
+    "heroIntro": "Diseño y construyo experiencias web accesibles, rápidas y resistentes a los casos reales. Mi experiencia en automatización de calidad guía cada decisión de frontend.",
+    "heroNoteLabel": "Perfil profesional",
+    "viewProjects": "Ver proyectos",
+    "currentLabel": "Actualmente",
+    "currentValue": "QA Automation Engineer",
+    "focusLabel": "Foco",
+    "focusLines": ["Frontend · Accesibilidad", "Calidad · Automatización"],
+    "projectEyebrow": "01 / Trabajo seleccionado",
+    "projectHeadingSingle": "Proyecto destacado",
+    "projectHeadingMultiple": "Proyectos destacados",
+    "viewAllProjects": "Ver todos los proyectos",
+    "noFeaturedProjects": "Pronto habrá proyectos destacados.",
+    "profileEyebrow": "02 / Perfil",
+    "profileHeading": "Frontend con mentalidad de calidad",
+    "profileIntro": "Me interesa el punto donde el diseño, el código y la fiabilidad se encuentran. No considero una interfaz terminada si solo funciona en el camino ideal.",
+    "principles": [
+      { "title": "Claridad", "description": "Jerarquía visual, contenido comprensible y decisiones de interacción previsibles." },
+      { "title": "Resiliencia", "description": "Estados de carga, error y datos parciales tratados como parte del producto." },
+      { "title": "Validación", "description": "Accesibilidad, automatización y pruebas integradas desde el desarrollo." }
+    ]
+  },
+  "projectsPage": {
+    "eyebrow": "Trabajo seleccionado",
+    "heading": "Proyectos",
+    "intro": "Una selección de proyectos explicados desde las decisiones de producto, frontend y calidad.",
+    "back": "← Volver al inicio",
+    "empty": "Pronto habrá proyectos publicados."
+  },
+  "projectLabels": {
+    "readCase": "Leer caso de estudio",
+    "viewCaseLabel": "Ver el caso de estudio de",
+    "caseIndex": "Índice del caso de estudio",
+    "caseContents": "Contenido",
+    "backToProjects": "← Todos los proyectos",
+    "visitSite": "Visitar sitio ↗",
+    "visitProjectFull": "Visitar {title} ↗",
+    "backToPortfolio": "Volver al portfolio"
+  },
+  "footer": {
+    "contactKicker": "¿Hablamos?",
+    "signature": "Rui De Castro · Full-stack Developer · Especializado en Frontend · QA Automation Engineer",
+    "nextKicker": "Siguiente proyecto",
+    "nextPlaceholder": "La estructura está preparada para crecer.",
+    "emailLabel": "Email"
+  }
+}

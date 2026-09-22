@@ -1,0 +1,121 @@
+{
+  "slug": "avoid-guild-web",
+  "status": "published",
+  "displayOrder": 1,
+  "featuredRank": 1,
+  "year": 2026,
+  "title": "Avoid Guild Web",
+  "summary": "Plataforma bilingüe para una comunidad de World of Warcraft: contenido editorial, datos en vivo, áreas privadas y una infraestructura preparada para fallos de proveedores externos.",
+  "liveUrl": "https://www.avoid-guild-eu-sanguino.es",
+  "image": {
+    "src": "/assets/avoid-guild-home.png",
+    "width": 1426,
+    "height": 914,
+    "cardAlt": "Página de inicio de Avoid Guild Web en escritorio",
+    "caseAlt": "Portada de Avoid Guild Web con navegación, presentación de la hermandad y progreso de raid",
+    "caption": "Portada de producción · diseño editorial oscuro y datos de progresión integrados."
+  },
+  "card": {
+    "version": "v1.0.0 · Producción",
+    "tags": ["Next.js", "TypeScript", "OAuth", "Testing"],
+    "facts": [
+      { "label": "Idiomas", "value": "ES / EN" },
+      { "label": "Validación", "value": "79 tests" },
+      { "label": "Entrega", "value": "CI/CD" }
+    ]
+  },
+  "seo": {
+    "title": "Avoid Guild Web · Caso de estudio · Rui De Castro",
+    "description": "Caso de estudio técnico de Avoid Guild Web: arquitectura, frontend, OAuth, datos externos, resiliencia, calidad y despliegue."
+  },
+  "case": {
+    "eyebrow": "Caso de estudio · 2026",
+    "deck": "Una plataforma bilingüe que combina contenido editorial, datos de juego en tiempo real y áreas privadas sin depender de que los proveedores externos estén siempre disponibles.",
+    "summary": [
+      { "label": "Responsabilidad", "value": "Producto, frontend y calidad" },
+      { "label": "Estado", "value": "v1.0.0 · Producción" },
+      { "label": "Plataforma", "value": "Web responsive · ES / EN" },
+      { "label": "Enlace", "value": "Visitar sitio ↗", "href": "https://www.avoid-guild-eu-sanguino.es" }
+    ],
+    "sections": [
+      {
+        "id": "contexto",
+        "label": "Contexto",
+        "heading": "De una web informativa a una herramienta para la comunidad",
+        "blocks": [
+          { "type": "lead", "text": "Avoid necesitaba una presencia pública sólida y, al mismo tiempo, un espacio útil para sus miembros y responsables. El reto era reunir contenido propio y varias fuentes de datos sin exponer información privada ni convertir cada incidencia externa en una página rota." },
+          { "type": "cards", "style": "challenge", "items": [
+            { "title": "Datos fragmentados", "text": "El progreso, roster, puntuaciones y logs proceden de servicios con modelos y tiempos de respuesta diferentes." },
+            { "title": "Dos niveles de acceso", "text": "Editores y miembros requieren autenticaciones distintas y permisos claramente separados." },
+            { "title": "Experiencia consistente", "text": "La interfaz debía conservar velocidad, claridad y datos útiles incluso durante fallos parciales." }
+          ] }
+        ]
+      },
+      {
+        "id": "solucion",
+        "label": "Solución",
+        "heading": "Una experiencia pública rápida con profundidad privada",
+        "blocks": [
+          { "type": "paragraph", "text": "El portal organiza la información en Inicio, Hermandad, Raid, Loot, Míticas+, Roster, Reclutamiento y Guías. El contenido esencial permanece público; los datos internos se solicitan únicamente después de verificar la sesión y la pertenencia a la hermandad." },
+          { "type": "features", "items": [
+            { "label": "Contenido bilingüe:", "text": "rutas y metadatos independientes en castellano e inglés." },
+            { "label": "Datos dinámicos:", "text": "progreso, temporadas y actividad combinados con contenido editorial." },
+            { "label": "Edición privada:", "text": "publicación versionada para roster, reclutamiento, loot, guías y contenido general." },
+            { "label": "Acceso de miembros:", "text": "Battle.net valida la pertenencia antes de entregar rankings, logs o historial privado." },
+            { "label": "Persistencia de preferencias:", "text": "el personaje seleccionado se recupera tras una nueva autenticación." }
+          ] }
+        ]
+      },
+      {
+        "id": "arquitectura",
+        "label": "Arquitectura",
+        "heading": "Separación clara entre interfaz, permisos y proveedores",
+        "blocks": [
+          { "type": "paragraph", "text": "Next.js sirve una capa pública y componentes de servidor. Las credenciales y consultas sensibles nunca llegan al navegador. Cada integración tiene su propia política de caché, reintentos y degradación controlada." },
+          { "type": "architecture", "ariaLabel": "Diagrama: navegador conectado a Next.js, que separa contenido público, acceso de miembros y edición; el servidor consulta integraciones externas y persistencia versionada", "entry": { "label": "Cliente", "title": "Navegador", "detail": "ES / EN · Responsive" }, "core": { "label": "Aplicación", "title": "Next.js · App Router", "detail": "Server Components · API routes" }, "columns": [
+            { "label": "Público", "title": "Contenido y datos", "detail": "Streaming · Caché" },
+            { "label": "Miembros", "title": "Battle.net OAuth", "detail": "Sesión firmada" },
+            { "label": "Editores", "title": "Clerk", "detail": "Invite-only" }
+          ], "providers": ["Raider.IO", "Battle.net", "Warcraft Logs", "WoWAudit", "GitHub"] },
+          { "type": "subheading", "text": "Infraestructura y entrega" },
+          { "type": "cards", "style": "environment", "items": [
+            { "title": "Desarrollo", "text": "Entorno local con clientes OAuth y configuración aislada." },
+            { "title": "Preproducción", "text": "Rama y credenciales propias para validar sin afectar datos reales." },
+            { "title": "Producción", "text": "Dominio propio, variables protegidas y publicación desde la rama estable." }
+          ] }
+        ]
+      },
+      {
+        "id": "calidad",
+        "label": "Calidad y resiliencia",
+        "navLabel": "Calidad",
+        "heading": "Los fallos externos forman parte del diseño",
+        "blocks": [
+          { "type": "paragraph", "text": "La plataforma diferencia entre cero progreso, datos parciales y proveedor no disponible. Cuando Raider.IO falla, mantiene el mayor progreso o puntuación válidos de la temporada y lo comunica claramente, evitando sustituir información útil por un guion o un estado engañoso." },
+          { "type": "stats", "items": [
+            { "value": "79", "label": "pruebas automatizadas" },
+            { "value": "AA", "label": "contraste objetivo" },
+            { "value": "3", "label": "entornos aislados" },
+            { "value": "0", "label": "secretos en cliente" }
+          ] },
+          { "type": "features", "compact": true, "items": [
+            { "text": "TypeScript estricto, lint y compilación de producción antes de cada lanzamiento." },
+            { "text": "Reintentos limitados, solicitudes concurrentes compartidas y cachés con alcance explícito." },
+            { "text": "Áreas privadas excluidas de buscadores y respuestas sensibles marcadas como no almacenables." },
+            { "text": "Navegación por teclado, estados activos, controles semánticos y diseño sin desbordamiento horizontal." },
+            { "text": "Versionado semántico, changelog y validación manual en preproducción antes de cada publicación." }
+          ] }
+        ]
+      },
+      {
+        "id": "resultado",
+        "label": "Resultado",
+        "heading": "Una base estable, preparada para evolucionar",
+        "blocks": [
+          { "type": "lead", "text": "La versión 1.0.0 unifica la presencia pública y las herramientas internas de Avoid en un producto mantenible. La arquitectura permite añadir nuevas fuentes, páginas o editores sin mezclar permisos, contenido y lógica de proveedores." },
+          { "type": "quote", "text": "La calidad no se añadió al final: definió desde el principio cómo debía comportarse cada pantalla cuando los datos, la red o la sesión no eran ideales." }
+        ]
+      }
+    ]
+  }
+}

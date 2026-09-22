@@ -1,52 +1,49 @@
 # Portfolio de Rui De Castro
 
-Portfolio personal de Rui De Castro, desarrollador full-stack especializado en frontend y QA Automation Engineer. Presenta proyectos propios mediante casos de estudio centrados en la experiencia de usuario, la arquitectura y la calidad.
+Portfolio estático de Rui De Castro. Las páginas se generan a partir de contenido en JSON y se publican en Vercel. El navegador recibe HTML, CSS e imágenes; no necesita un framework ni dependencias de producción.
 
-## Contenido
+## Desarrollo local
 
-- **Inicio:** presentación, perfil profesional y proyectos destacados.
-- **Avoid Guild Web:** primer caso de estudio, con contexto, solución, arquitectura, calidad y resultado.
-- **Estructura ampliable:** cada futuro proyecto puede tener su propia página dentro de `dist/proyectos/`.
-
-## Tecnologías
-
-El portfolio es un sitio estático construido con HTML y CSS. No necesita un framework, dependencias de producción ni un proceso de compilación. `preview-server.mjs` utiliza Node.js únicamente para verlo en local. El despliegue se gestiona con Vercel.
-
-La implementación utiliza HTML semántico, navegación por teclado, diseño adaptable y metadatos específicos para cada página.
-
-## Verlo en local
-
-Con Node.js instalado, ejecuta:
+Requiere Node.js 20 o posterior. Desde la raíz del proyecto:
 
 ```bash
+npm run build
 node preview-server.mjs
 ```
 
-Después abre `http://127.0.0.1:4173`.
+Abre `http://127.0.0.1:4173`. Vuelve a ejecutar `npm run build` después de cambiar contenido o estilos y recarga la página.
+
+`npm run check` comprueba el orden de dos proyectos, la generación del caso y la exclusión de borradores; al terminar reconstruye la versión normal de `dist/`.
 
 ## Estructura
 
 ```text
-dist/
-  index.html                         Página principal
-  styles.css                         Estilos compartidos
-  assets/                            Imágenes del portfolio
-  proyectos/avoid-guild-web/         Caso de estudio
-vercel.json                          Configuración del directorio publicado en Vercel
-preview-server.mjs                   Servidor local de vista previa
+src/
+  content/site.es.json                 Textos comunes, navegación y metadatos
+  content/projects/*.es.json           Un archivo por proyecto
+  styles.css                           Estilos compartidos
+  menu.js                              Cierre del menú móvil
+  assets/                              Imágenes
+scripts/build.mjs                      Validación y generación de páginas
+scripts/render.mjs                     Plantillas HTML compartidas
+scripts/check-build.mjs                Comprobación del flujo de proyectos
+dist/                                  Resultado generado; no se versiona
+vercel.json                            Configuración de publicación
 ```
 
-Para añadir un proyecto, crea `dist/proyectos/<nombre>/index.html` y enlázalo desde la sección de proyectos de `dist/index.html`. Los estilos comunes se encuentran en `dist/styles.css`.
+## Añadir o actualizar un proyecto
+
+1. Copia `src/content/projects/avoid-guild-web.es.json` a un archivo `<slug>.es.json` y adapta los campos. El nombre del archivo debe coincidir con `slug`.
+2. Coloca la imagen en `src/assets/` y actualiza `image.src`, su tamaño, los textos alternativos y el pie.
+3. Escribe el resumen para la tarjeta, metadatos SEO y las secciones del caso de estudio. Los bloques disponibles son `lead`, `paragraph`, `cards`, `features`, `architecture`, `stats`, `subheading` y `quote`.
+4. Define `displayOrder` para ordenar el catálogo. Añade `featuredRank` para mostrarlo en la portada; los números menores aparecen primero. Omite `featuredRank` si solo debe salir en el catálogo.
+5. Usa `status: "draft"` mientras preparas el proyecto. Cambia a `"published"` cuando esté listo. Los borradores no generan páginas públicas.
+6. Ejecuta `npm run build` y revisa `/`, `/proyectos/` y `/proyectos/<slug>/` en la vista local.
+
+Las tarjetas, el catálogo, las rutas de casos y el enlace al siguiente proyecto se generan automáticamente a partir de los archivos publicados. Cambia los textos compartidos en `src/content/site.es.json`; no edites `dist/`.
 
 ## Publicación
 
-El contenido que se publica está en `dist/`. Vercel publica los cambios enviados a la rama principal del repositorio de GitHub.
-
-## Enlaces
-
-- [Portfolio](https://rui-de-castro-portfolio.es/)
-- [Avoid Guild Web](https://www.avoid-guild-eu-sanguino.es/)
-- [GitHub](https://github.com/shodawsito)
-- [LinkedIn](https://www.linkedin.com/in/rui-nuno-de-castro-tendeiro/)
+Vercel ejecuta `npm run build` y publica `dist/` desde la rama principal. El dominio propio [rui-de-castro-portfolio.es](https://rui-de-castro-portfolio.es/) está pendiente de verificación DNS. Cuando responda, cambia `siteUrl` en `src/content/site.es.json` al dominio propio para actualizar las URL canónicas.
 
 © Rui De Castro. No se ha incluido una licencia de reutilización del código.
