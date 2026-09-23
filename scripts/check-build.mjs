@@ -30,6 +30,8 @@ try {
   const firstCase = await readOutput(join('proyectos', 'avoid-guild-web', 'index.html'));
   assert(home.indexOf('/proyectos/avoid-guild-web/') < home.indexOf('/proyectos/roadmap-check/'));
   assert(catalogue.indexOf('/proyectos/avoid-guild-web/') < catalogue.indexOf('/proyectos/roadmap-check/'));
+  assert(home.includes('<h3>Roadmap check</h3>'));
+  assert(catalogue.includes('<h2>Roadmap check</h2>'));
   assert(firstCase.includes('href="/proyectos/roadmap-check/"'));
   assert(sitemap.includes(`${site.siteUrl}/proyectos/roadmap-check/`));
   assert(home.includes(`<meta property="og:url" content="${site.siteUrl}/">`));

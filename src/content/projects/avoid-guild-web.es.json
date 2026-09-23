@@ -8,9 +8,9 @@
   "summary": "Plataforma bilingüe para una comunidad de World of Warcraft: contenido editorial, datos en vivo, áreas privadas y una infraestructura preparada para fallos de proveedores externos.",
   "liveUrl": "https://www.avoid-guild-eu-sanguino.es",
   "image": {
-    "src": "/assets/avoid-guild-home.png",
-    "width": 1426,
-    "height": 914,
+    "src": "/assets/avoid-guild-home.jpg",
+    "width": 1411,
+    "height": 904,
     "cardAlt": "Página de inicio de Avoid Guild Web en escritorio",
     "caseAlt": "Portada de Avoid Guild Web con navegación, presentación de la hermandad y progreso de raid",
     "caption": "Portada de producción · diseño editorial oscuro y datos de progresión integrados."

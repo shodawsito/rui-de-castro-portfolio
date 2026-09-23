@@ -3,7 +3,18 @@ import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
 
 const root = join(process.cwd(), "dist");
-const types = { ".css": "text/css", ".html": "text/html", ".js": "text/javascript", ".png": "image/png" };
+const types = {
+  ".css": "text/css",
+  ".html": "text/html; charset=utf-8",
+  ".js": "text/javascript",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".svg": "image/svg+xml",
+  ".webp": "image/webp",
+  ".xml": "application/xml",
+  ".txt": "text/plain; charset=utf-8"
+};
 
 createServer((request, response) => {
   const pathname = decodeURIComponent(new URL(request.url, "http://localhost").pathname);

@@ -113,7 +113,7 @@ h2 { margin: 0; font-size: clamp(2.2rem, 5vw, 4.4rem); line-height: 1; letter-sp
 .project-version { position: absolute; top: 1rem; left: 1rem; padding: .55rem .75rem; background: rgba(11,16,24,.9); border: 1px solid rgba(255,255,255,.17); font: 700 .73rem/1 ui-monospace, monospace; }
 .project-copy { padding: clamp(2rem, 4vw, 3.5rem); align-self: center; }
 .project-meta { display: flex; flex-wrap: wrap; gap: .55rem 1rem; color: var(--accent); }
-.project-copy h3 { margin: 1.1rem 0 1.25rem; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1; letter-spacing: -.04em; }
+.project-copy :is(h2, h3) { margin: 1.1rem 0 1.25rem; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1; letter-spacing: -.04em; }
 .project-copy > p { color: var(--muted); }
 .project-facts { display: grid; grid-template-columns: repeat(3, 1fr); margin: 2rem 0; border-block: 1px solid var(--line); }
 .project-facts div { padding: 1.1rem .5rem 1.1rem 0; }

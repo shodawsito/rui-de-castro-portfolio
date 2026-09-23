@@ -93,7 +93,7 @@ function siteFooter(site) {
 
 function projectPath(project) { return `/proyectos/${project.slug}/`; }
 
-function projectCard(site, project) {
+function projectCard(site, project, headingTag = 'h3') {
   const path = projectPath(project);
   return `<article class="project-card">
           <a class="project-visual" href="${path}" aria-label="${esc(site.projectLabels.viewCaseLabel + ' ' + project.title)}">
@@ -102,7 +102,7 @@ function projectCard(site, project) {
           </a>
           <div class="project-copy">
             <div class="project-meta">${project.card.tags.map((tag) => `<span>${esc(tag)}</span>`).join('')}</div>
-            <h3>${esc(project.title)}</h3>
+            <${headingTag}>${esc(project.title)}</${headingTag}>
             <p>${esc(project.summary)}</p>
             <dl class="project-facts">${project.card.facts.map((fact) => `<div><dt>${esc(fact.label)}</dt><dd>${esc(fact.value)}</dd></div>`).join('')}</dl>
             <a class="text-link" href="${path}">${esc(site.projectLabels.readCase)} <span aria-hidden="true">→</span></a>
@@ -169,7 +169,7 @@ export function projectsPage(site, projects) {
         <p class="case-deck">${esc(p.intro)}</p>
       </header>
       <section class="catalog-projects" aria-label="${esc(site.navigation.projects)}">
-        <div class="projects-list">${projects.length ? projects.map((project) => projectCard(site, project)).join('') : `<p>${esc(p.empty)}</p>`}</div>
+        <div class="projects-list">${projects.length ? projects.map((project) => projectCard(site, project, 'h2')).join('') : `<p>${esc(p.empty)}</p>`}</div>
       </section>`
   });
 }

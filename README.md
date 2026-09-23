@@ -36,7 +36,7 @@ vercel.json                            Configuración de publicación
 ## Añadir o actualizar un proyecto
 
 1. Copia `examples/project-template.es.json` a `src/content/projects/<slug>.es.json` y adapta los campos. El nombre del archivo debe coincidir con `slug`. Usa el caso de Avoid Guild Web como ejemplo de una página más extensa.
-2. Coloca la imagen en `src/assets/` y actualiza `image.src`, su tamaño, los textos alternativos y el pie.
+2. Coloca la imagen en `src/assets/` y actualiza `image.src`, sus dimensiones reales, los textos alternativos y el pie. La extensión del archivo debe corresponder a su formato real.
 3. Escribe el resumen para la tarjeta, metadatos SEO y las secciones del caso de estudio. Los bloques disponibles son `lead`, `paragraph`, `cards`, `features`, `architecture`, `stats`, `subheading` y `quote`. El diagrama `architecture`, si se usa, lleva tres columnas. El menú del caso enlaza a la primera sección; añade `case.navigationSectionId` para elegir otra por su `id`. `liveUrl` es opcional: omítelo si el proyecto aún no tiene una web pública.
 4. Define `displayOrder` para ordenar el catálogo. Añade `featuredRank` para mostrarlo en la portada; los números menores aparecen primero. Omite `featuredRank` si solo debe salir en el catálogo.
 5. Usa `status: "draft"` mientras preparas el proyecto. Cambia a `"published"` cuando esté listo. Los borradores no generan páginas públicas.
