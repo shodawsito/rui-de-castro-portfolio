@@ -44,6 +44,6 @@ Las tarjetas, el catálogo, las rutas de casos y el enlace al siguiente proyecto
 
 ## Publicación
 
-Vercel ejecuta `npm run build` y publica `dist/` desde la rama principal. El dominio propio [rui-de-castro-portfolio.es](https://rui-de-castro-portfolio.es/) está pendiente de verificación DNS. Cuando responda, cambia `siteUrl` en `src/content/site.es.json` al dominio propio para actualizar las URL canónicas.
+Vercel ejecuta `npm run build` y publica `dist/` desde la rama principal. El dominio principal es [rui-de-castro-portfolio.es](https://rui-de-castro-portfolio.es/); `www` redirige al dominio raíz. La URL canónica se define en `src/content/site.es.json`.
 
 © Rui De Castro. No se ha incluido una licencia de reutilización del código.
