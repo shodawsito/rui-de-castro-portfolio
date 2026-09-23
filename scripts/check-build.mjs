@@ -42,7 +42,22 @@ try {
   architecture.columns.pop();
   await writeFile(fixturePath, JSON.stringify(project));
   assert.throws(build, /architecture requires three columns/);
-  process.stdout.write('Project ordering, case generation, draft filtering and content validation passed.\n');
+
+  project.status = 'published';
+  project.case.sections = project.case.sections.filter((section) => section.id !== 'arquitectura');
+  delete project.case.navigationSectionId;
+  delete project.liveUrl;
+  await writeFile(fixturePath, JSON.stringify(project));
+  build();
+  const genericCase = await readOutput(join('proyectos', 'roadmap-check', 'index.html'));
+  assert(genericCase.includes('<a href="#contexto">Contexto</a>'));
+  assert(!genericCase.includes('>Ver proyecto ↗</a>'));
+  assert(!genericCase.includes('Visitar Roadmap check'));
+
+  project.case.navigationSectionId = 'missing';
+  await writeFile(fixturePath, JSON.stringify(project));
+  assert.throws(build, /navigationSectionId must match a case section/);
+  process.stdout.write('Project ordering, draft filtering, flexible case navigation and content validation passed.\n');
 } finally {
   if (created) await rm(fixturePath);
   build();

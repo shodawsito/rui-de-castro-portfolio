@@ -29,6 +29,7 @@
     "description": "Caso de estudio técnico de Avoid Guild Web: arquitectura, frontend, OAuth, datos externos, resiliencia, calidad y despliegue."
   },
   "case": {
+    "navigationSectionId": "arquitectura",
     "eyebrow": "Caso de estudio · 2026",
     "deck": "Una plataforma bilingüe que combina contenido editorial, datos de juego en tiempo real y áreas privadas sin depender de que los proveedores externos estén siempre disponibles.",
     "summary": [

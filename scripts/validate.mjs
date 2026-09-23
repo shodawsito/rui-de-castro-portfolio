@@ -78,7 +78,7 @@ export function validateProject(project, filename, slugs) {
   assert(project.featuredRank == null || (Number.isInteger(project.featuredRank) && project.featuredRank > 0), `${where}: featuredRank must be a positive integer`);
   text(project.title, `${where}.title`);
   text(project.summary, `${where}.summary`);
-  httpsUrl(project.liveUrl, `${where}.liveUrl`);
+  if (project.liveUrl != null) httpsUrl(project.liveUrl, `${where}.liveUrl`);
   assert(/^\/assets\/[a-zA-Z0-9/_-]+\.(png|jpe?g|webp|svg)$/.test(project.image?.src ?? ''), `${where}: invalid image.src`);
   assert(Number.isInteger(project.image.width) && project.image.width > 0, `${where}: invalid image.width`);
   assert(Number.isInteger(project.image.height) && project.image.height > 0, `${where}: invalid image.height`);
@@ -108,5 +108,7 @@ export function validateProject(project, filename, slugs) {
     if (section.navLabel != null) text(section.navLabel, `${sectionWhere}.navLabel`);
     items(section.blocks, `${sectionWhere}.blocks`).forEach((block, blockIndex) => validateBlock(block, `${sectionWhere}.blocks[${blockIndex}]`));
   });
-  assert(ids.has('arquitectura'), `${where}: case navigation expects an arquitectura section`);
+  if (project.case.navigationSectionId != null) {
+    assert(ids.has(project.case.navigationSectionId), `${where}: navigationSectionId must match a case section`);
+  }
 }

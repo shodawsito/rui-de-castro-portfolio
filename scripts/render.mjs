@@ -32,17 +32,18 @@ function page(site, { title, description, path, bodyClass = '', header, content,
 `;
 }
 
-function siteHeader(site, kind, liveUrl) {
+function siteHeader(site, kind, project) {
   const home = kind === 'home';
   const casePage = kind === 'case';
+  const navigationSection = casePage && (project.case.sections.find((section) => section.id === project.case.navigationSectionId) ?? project.case.sections[0]);
   const links = home ? [
     { href: '#proyectos', text: site.navigation.projects },
     { href: '#perfil', text: site.navigation.profile },
     { href: `mailto:${site.email}`, text: site.navigation.contact, contact: true }
   ] : casePage ? [
     { href: '/', text: site.navigation.portfolio },
-    { href: '#arquitectura', text: site.navigation.architecture },
-    { href: liveUrl, text: site.navigation.visitProject, contact: true, external: true }
+    { href: `#${navigationSection.id}`, text: navigationSection.navLabel ?? navigationSection.label },
+    ...(project.liveUrl ? [{ href: project.liveUrl, text: site.navigation.visitProject, contact: true, external: true }] : [])
   ] : [
     { href: '/', text: site.navigation.portfolio },
     { href: '/proyectos/', text: site.navigation.projects },
@@ -191,7 +192,7 @@ function caseBlock(block) {
 
 function caseSection(section, index, last, site, project) {
   const actions = last ? `<div class="case-actions">
-      ${external(project.liveUrl, site.projectLabels.visitProjectFull.replace('{title}', project.title), 'button button-primary')}
+      ${project.liveUrl ? external(project.liveUrl, site.projectLabels.visitProjectFull.replace('{title}', project.title), 'button button-primary') : ''}
       <a class="button button-quiet" href="/">${esc(site.projectLabels.backToPortfolio)}</a>
     </div>` : '';
   return `<section id="${esc(section.id)}">
@@ -208,7 +209,7 @@ export function projectPage(site, project, nextProject) {
   const nextText = nextProject ? `<a href="${projectPath(nextProject)}">${esc(nextProject.title)} <span aria-hidden="true">→</span></a>` : esc(site.footer.nextPlaceholder);
   return page(site, {
     title: project.seo.title, description: project.seo.description, path: projectPath(project), bodyClass: 'case-page',
-    header: siteHeader(site, 'case', project.liveUrl),
+    header: siteHeader(site, 'case', project),
     footer: `<footer><p class="footer-kicker">${esc(site.footer.nextKicker)}</p><p class="next-project">${nextText}</p><div class="footer-bottom"><p>${esc(site.footer.signature)}</p>${footerLinks(site, true)}</div></footer>`,
     content: `
       <header class="case-hero">

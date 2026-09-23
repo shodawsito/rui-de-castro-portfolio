@@ -13,7 +13,7 @@ node preview-server.mjs
 
 Abre `http://127.0.0.1:4173`. Vuelve a ejecutar `npm run build` después de cambiar contenido o estilos y recarga la página.
 
-`npm run check` comprueba el orden de dos proyectos, la generación del caso, la exclusión de borradores y la validación del contenido; al terminar reconstruye la versión normal de `dist/`.
+`npm run check` comprueba el orden de dos proyectos, la generación del caso, la exclusión de borradores, la navegación entre secciones y la validación del contenido; al terminar reconstruye la versión normal de `dist/`.
 
 ## Estructura
 
@@ -28,15 +28,16 @@ scripts/build.mjs                      Validación y generación de páginas
 scripts/validate.mjs                   Reglas del contenido y de los proyectos
 scripts/render.mjs                     Plantillas HTML compartidas
 scripts/check-build.mjs                Comprobación del flujo de proyectos
+examples/project-template.es.json      Plantilla mínima para nuevos casos
 dist/                                  Resultado generado; no se versiona
 vercel.json                            Configuración de publicación
 ```
 
 ## Añadir o actualizar un proyecto
 
-1. Copia `src/content/projects/avoid-guild-web.es.json` a un archivo `<slug>.es.json` y adapta los campos. El nombre del archivo debe coincidir con `slug`.
+1. Copia `examples/project-template.es.json` a `src/content/projects/<slug>.es.json` y adapta los campos. El nombre del archivo debe coincidir con `slug`. Usa el caso de Avoid Guild Web como ejemplo de una página más extensa.
 2. Coloca la imagen en `src/assets/` y actualiza `image.src`, su tamaño, los textos alternativos y el pie.
-3. Escribe el resumen para la tarjeta, metadatos SEO y las secciones del caso de estudio. Los bloques disponibles son `lead`, `paragraph`, `cards`, `features`, `architecture`, `stats`, `subheading` y `quote`. El diagrama `architecture` utiliza tres columnas.
+3. Escribe el resumen para la tarjeta, metadatos SEO y las secciones del caso de estudio. Los bloques disponibles son `lead`, `paragraph`, `cards`, `features`, `architecture`, `stats`, `subheading` y `quote`. El diagrama `architecture`, si se usa, lleva tres columnas. El menú del caso enlaza a la primera sección; añade `case.navigationSectionId` para elegir otra por su `id`. `liveUrl` es opcional: omítelo si el proyecto aún no tiene una web pública.
 4. Define `displayOrder` para ordenar el catálogo. Añade `featuredRank` para mostrarlo en la portada; los números menores aparecen primero. Omite `featuredRank` si solo debe salir en el catálogo.
 5. Usa `status: "draft"` mientras preparas el proyecto. Cambia a `"published"` cuando esté listo. Los borradores no generan páginas públicas.
 6. Ejecuta `npm run build` y revisa `/`, `/proyectos/` y `/proyectos/<slug>/` en la vista local.

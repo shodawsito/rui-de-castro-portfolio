@@ -1,0 +1,45 @@
+{
+  "slug": "nombre-del-proyecto",
+  "status": "draft",
+  "displayOrder": 2,
+  "year": 2026,
+  "title": "Nombre del proyecto",
+  "summary": "Resumen breve del proyecto para la tarjeta del catálogo.",
+  "image": {
+    "src": "/assets/nombre-del-proyecto.webp",
+    "width": 1200,
+    "height": 800,
+    "cardAlt": "Vista principal de Nombre del proyecto",
+    "caseAlt": "Captura del proyecto en su página de inicio",
+    "caption": "Vista principal del proyecto."
+  },
+  "card": {
+    "version": "En desarrollo",
+    "tags": ["Frontend"],
+    "facts": [
+      { "label": "Rol", "value": "Diseño y desarrollo" }
+    ]
+  },
+  "seo": {
+    "title": "Nombre del proyecto · Caso de estudio · Rui De Castro",
+    "description": "Descripción del proyecto y de las decisiones explicadas en el caso de estudio."
+  },
+  "case": {
+    "eyebrow": "Caso de estudio · 2026",
+    "deck": "Una frase que explique el objetivo y el resultado del proyecto.",
+    "summary": [
+      { "label": "Responsabilidad", "value": "Diseño y desarrollo frontend" }
+    ],
+    "sections": [
+      {
+        "id": "contexto",
+        "label": "Contexto",
+        "heading": "El reto del proyecto",
+        "blocks": [
+          { "type": "lead", "text": "Explica el problema, para quién se creó el proyecto y qué debía resolver." },
+          { "type": "paragraph", "text": "Añade aquí las decisiones principales y el resultado." }
+        ]
+      }
+    ]
+  }
+}
