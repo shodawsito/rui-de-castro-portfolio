@@ -13,6 +13,7 @@ const readOutput = (path) => readFile(join(output, path), 'utf8');
 
 let created = false;
 try {
+  const site = JSON.parse(await readFile(join(root, 'src', 'content', 'site.es.json'), 'utf8'));
   const project = JSON.parse(await readFile(join(source, 'avoid-guild-web.es.json'), 'utf8'));
   project.slug = 'roadmap-check';
   project.title = 'Roadmap check';
@@ -25,10 +26,15 @@ try {
   build();
   const home = await readOutput('index.html');
   const catalogue = await readOutput(join('proyectos', 'index.html'));
+  const sitemap = await readOutput('sitemap.xml');
   const firstCase = await readOutput(join('proyectos', 'avoid-guild-web', 'index.html'));
   assert(home.indexOf('/proyectos/avoid-guild-web/') < home.indexOf('/proyectos/roadmap-check/'));
   assert(catalogue.indexOf('/proyectos/avoid-guild-web/') < catalogue.indexOf('/proyectos/roadmap-check/'));
   assert(firstCase.includes('href="/proyectos/roadmap-check/"'));
+  assert(sitemap.includes(`${site.siteUrl}/proyectos/roadmap-check/`));
+  assert(home.includes(`<meta property="og:url" content="${site.siteUrl}/">`));
+  assert(firstCase.includes(`<meta property="og:image" content="${site.siteUrl + project.image.src}">`));
+  assert(home.includes('<main id="contenido" tabindex="-1">'));
   assert((await readOutput(join('proyectos', 'roadmap-check', 'index.html'))).includes('<h1>Roadmap check</h1>'));
 
   project.status = 'draft';
@@ -36,6 +42,7 @@ try {
   build();
   assert(!(await readOutput('index.html')).includes('/proyectos/roadmap-check/'));
   assert(!(await readOutput(join('proyectos', 'index.html'))).includes('/proyectos/roadmap-check/'));
+  assert(!(await readOutput('sitemap.xml')).includes('/proyectos/roadmap-check/'));
 
   const architecture = project.case.sections.find((section) => section.id === 'arquitectura')
     .blocks.find((block) => block.type === 'architecture');
@@ -57,7 +64,7 @@ try {
   project.case.navigationSectionId = 'missing';
   await writeFile(fixturePath, JSON.stringify(project));
   assert.throws(build, /navigationSectionId must match a case section/);
-  process.stdout.write('Project ordering, draft filtering, flexible case navigation and content validation passed.\n');
+  process.stdout.write('Project ordering, draft filtering, case navigation, SEO output and content validation passed.\n');
 } finally {
   if (created) await rm(fixturePath);
   build();

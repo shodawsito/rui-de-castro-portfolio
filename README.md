@@ -42,7 +42,7 @@ vercel.json                            Configuración de publicación
 5. Usa `status: "draft"` mientras preparas el proyecto. Cambia a `"published"` cuando esté listo. Los borradores no generan páginas públicas.
 6. Ejecuta `npm run build` y revisa `/`, `/proyectos/` y `/proyectos/<slug>/` en la vista local.
 
-Las tarjetas, el catálogo, las rutas de casos y el enlace al siguiente proyecto se generan automáticamente a partir de los archivos publicados. Cambia los textos compartidos en `src/content/site.es.json`; no edites `dist/`.
+Las tarjetas, el catálogo, las rutas de casos, los metadatos para compartir, `sitemap.xml` y el enlace al siguiente proyecto se generan automáticamente a partir de los archivos publicados. Los borradores no aparecen en el sitemap. Cambia los textos compartidos en `src/content/site.es.json`; no edites `dist/`.
 
 ## Publicación
 

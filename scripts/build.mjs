@@ -40,6 +40,16 @@ async function build() {
   await writeFile(join(output, 'index.html'), homePage(site, featured));
   await mkdir(join(output, 'proyectos'), { recursive: true });
   await writeFile(join(output, 'proyectos', 'index.html'), projectsPage(site, published));
+  const paths = ['/', '/proyectos/', ...published.map((project) => `/proyectos/${project.slug}/`)];
+  await writeFile(join(output, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${paths.map((path) => `  <url><loc>${site.siteUrl + path}</loc></url>`).join('\n')}
+</urlset>
+`);
+  await writeFile(join(output, 'robots.txt'), `User-agent: *
+Allow: /
+Sitemap: ${site.siteUrl}/sitemap.xml
+`);
   for (const [index, project] of published.entries()) {
     const directory = join(output, 'proyectos', project.slug);
     await mkdir(directory, { recursive: true });

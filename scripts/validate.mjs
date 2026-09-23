@@ -65,6 +65,7 @@ function validateBlock(block, where) {
 export function validateSite(site) {
   const url = httpsUrl(site?.siteUrl, 'site.es.json: siteUrl');
   assert(site.siteUrl === url.origin, 'site.es.json: siteUrl must be the origin without a trailing /');
+  text(site.socialLocale, 'site.es.json: socialLocale');
 }
 
 export function validateProject(project, filename, slugs) {

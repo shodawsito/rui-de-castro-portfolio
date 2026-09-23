@@ -7,7 +7,8 @@ const external = (href, label, className = '') =>
 
 const favicon = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1018'/%3E%3Cpath d='M17 46V18h16c9 0 14 4 14 12 0 5-2 8-7 10l9 6H37l-7-6h-3v6H17Zm10-15h6c3 0 4-1 4-3s-1-3-4-3h-6v6Z' fill='%236de7d2'/%3E%3C/svg%3E`;
 
-function page(site, { title, description, path, bodyClass = '', header, content, footer }) {
+function page(site, { title, description, path, image, bodyClass = '', header, content, footer }) {
+  const url = site.siteUrl + path;
   return `<!doctype html>
 <html lang="${esc(site.lang)}">
   <head>
@@ -15,7 +16,19 @@ function page(site, { title, description, path, bodyClass = '', header, content,
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="${esc(description)}">
     <meta name="theme-color" content="#0b1018">
-    <link rel="canonical" href="${esc(site.siteUrl + path)}">
+    <link rel="canonical" href="${esc(url)}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="${esc(site.socialLocale)}">
+    <meta property="og:site_name" content="${esc(site.name)}">
+    <meta property="og:title" content="${esc(title)}">
+    <meta property="og:description" content="${esc(description)}">
+    <meta property="og:url" content="${esc(url)}">
+    <meta name="twitter:card" content="${image ? 'summary_large_image' : 'summary'}">
+    ${image ? `<meta property="og:image" content="${esc(site.siteUrl + image.src)}">
+    <meta property="og:image:alt" content="${esc(image.alt)}">
+    <meta property="og:image:width" content="${image.width}">
+    <meta property="og:image:height" content="${image.height}">
+    <meta name="twitter:image" content="${esc(site.siteUrl + image.src)}">` : ''}
     <title>${esc(title)}</title>
     <link rel="icon" type="image/svg+xml" href="${favicon}">
     <link rel="stylesheet" href="/styles.css">
@@ -24,7 +37,7 @@ function page(site, { title, description, path, bodyClass = '', header, content,
   <body${bodyClass ? ` class="${esc(bodyClass)}"` : ''}>
     <a class="skip-link" href="#contenido">${esc(site.skipLink)}</a>
     ${header}
-    <main id="contenido">${content}
+    <main id="contenido" tabindex="-1">${content}
     </main>
     ${footer}
   </body>
@@ -105,6 +118,7 @@ export function homePage(site, featured) {
   const projectCards = featured.length ? featured.map((project) => projectCard(site, project)).join('') : `<p>${esc(h.noFeaturedProjects)}</p>`;
   return page(site, {
     title: site.seo.homeTitle, description: site.seo.homeDescription, path: '/',
+    image: featured[0] && { ...featured[0].image, alt: featured[0].image.cardAlt },
     header: siteHeader(site, 'home'), footer: siteFooter(site),
     content: `
       <section class="hero" aria-labelledby="hero-title">
@@ -145,6 +159,7 @@ export function projectsPage(site, projects) {
   const p = site.projectsPage;
   return page(site, {
     title: site.seo.projectsTitle, description: site.seo.projectsDescription, path: '/proyectos/',
+    image: projects[0] && { ...projects[0].image, alt: projects[0].image.cardAlt },
     header: siteHeader(site, 'catalog'), footer: siteFooter(site),
     content: `
       <header class="catalog-hero">
@@ -208,7 +223,8 @@ export function projectPage(site, project, nextProject) {
   const summary = c.summary.map((item) => `<div><dt>${esc(item.label)}</dt><dd>${item.href ? external(item.href, item.value) : esc(item.value)}</dd></div>`).join('');
   const nextText = nextProject ? `<a href="${projectPath(nextProject)}">${esc(nextProject.title)} <span aria-hidden="true">→</span></a>` : esc(site.footer.nextPlaceholder);
   return page(site, {
-    title: project.seo.title, description: project.seo.description, path: projectPath(project), bodyClass: 'case-page',
+    title: project.seo.title, description: project.seo.description, path: projectPath(project),
+    image: { ...project.image, alt: project.image.caseAlt }, bodyClass: 'case-page',
     header: siteHeader(site, 'case', project),
     footer: `<footer><p class="footer-kicker">${esc(site.footer.nextKicker)}</p><p class="next-project">${nextText}</p><div class="footer-bottom"><p>${esc(site.footer.signature)}</p>${footerLinks(site, true)}</div></footer>`,
     content: `
