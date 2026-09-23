@@ -36,7 +36,13 @@ try {
   build();
   assert(!(await readOutput('index.html')).includes('/proyectos/roadmap-check/'));
   assert(!(await readOutput(join('proyectos', 'index.html'))).includes('/proyectos/roadmap-check/'));
-  process.stdout.write('Project ordering, case generation and draft filtering passed.\n');
+
+  const architecture = project.case.sections.find((section) => section.id === 'arquitectura')
+    .blocks.find((block) => block.type === 'architecture');
+  architecture.columns.pop();
+  await writeFile(fixturePath, JSON.stringify(project));
+  assert.throws(build, /architecture requires three columns/);
+  process.stdout.write('Project ordering, case generation, draft filtering and content validation passed.\n');
 } finally {
   if (created) await rm(fixturePath);
   build();
